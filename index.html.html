@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ULI有隻糰 - 寵物美容價格試算與小幫手</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for cute icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Zen Maru Gothic / Noto Sans TC for cozy feel -->
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        wood: {
+                            50: '#FDFBF7',
+                            100: '#F7F1E5',
+                            200: '#EADBC8',
+                            300: '#DAC0A3',
+                            500: '#B08968',
+                            600: '#9C6644',
+                            700: '#7F4F24',
+                            800: '#583101',
+                        },
+                        warmWarm: '#FFFBEB',
+                        pawOrange: '#E07A5F',
+                        softGreen: '#81B29A',
+                    },
+                    fontFamily: {
+                        sans: ['"Zen Maru Gothic"', '"Noto Sans TC"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #F7F1E5;
+            background-image: radial-gradient(#EADBC8 1px, transparent 1px);
+            background-size: 20px 20px;
+            font-family: 'Zen Maru Gothic', 'Noto Sans TC', sans-serif;
+            color: #583101;
+        }
+        .wood-card {
+            background: #FFFFFF;
+            border: 2px solid #EADBC8;
+            box-shadow: 0 8px 20px -4px rgba(88, 49, 1, 0.08);
+        }
+        .wood-header {
+            background: linear-gradient(135deg, #B08968 0%, #9C6644 100%);
+        }
+        .custom-checkbox:checked + label {
+            background-color: #F7F1E5;
+            border-color: #B08968;
+            color: #583101;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body class="min-h-screen py-6 px-3 sm:px-6 md:py-10">
+
+    <!-- 主容器 -->
+    <div class="max-w-3xl mx-auto">
+
+        <!-- 店名與溫馨招牌標頭 -->
+        <header class="wood-card rounded-3xl overflow-hidden mb-6 text-center text-white relative shadow-lg">
+            <div class="wood-header py-8 px-4 relative">
+                <!-- 裝飾木紋感圓弧與小圖示 -->
+                <div class="absolute top-3 left-4 text-wood-200 opacity-40 text-xl"><i class="fa-solid font-paw fa-paw"></i></div>
+                <div class="absolute top-3 right-4 text-wood-200 opacity-40 text-xl"><i class="fa-solid font-paw fa-paw"></i></div>
+                <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 text-wood-200 opacity-20 text-4xl">🐾</div>
+
+                <div class="inline-block bg-wood-800 text-wood-100 text-xs px-3 py-1 rounded-full font-medium mb-2 tracking-wide shadow-sm">
+                    溫馨手作 ‧ 寵物沙龍
+                </div>
+                <h1 class="text-3xl sm:text-4xl font-bold tracking-wider mb-2 flex items-center justify-center gap-2">
+                    <span>ULI 有隻糰</span>
+                </h1>
+                <p class="text-wood-100 text-sm sm:text-base font-medium max-w-md mx-auto leading-relaxed px-2">
+                    嗨！歡迎來到糰糰的家 ✨<br>
+                    為了給毛孩最舒適的洗澡體驗，請幫我們勾選以下資料，馬上為您試算洗澡美容費用喔！
+                </p>
+            </div>
+            <!-- 可愛的小狗掛飾裝飾區 -->
+            <div class="bg-wood-200 py-2 px-4 flex justify-between items-center text-xs text-wood-700 font-medium">
+                <span><i class="fa-solid fa-clock mr-1"></i> 預約制服務</span>
+                <span><i class="fa-solid fa-heart mr-1"></i> 專屬一對一照顧</span>
+                <span><i class="fa-solid fa-location-dot mr-1"></i> 中小型犬專門店</span>
+            </div>
+        </header>
+
+        <!-- 主要互動表單卡片 -->
+        <main class="space-y-6">
+
+            <!-- 步驟 1：狗狗基本資料 -->
+            <section class="wood-card rounded-2xl p-5 sm:p-6">
+                <div class="flex items-center gap-2 text-wood-700 font-bold text-lg mb-4 border-b-2 border-wood-100 pb-2">
+                    <span class="w-7 h-7 rounded-full bg-wood-500 text-white flex items-center justify-center text-sm">1</span>
+                    <i class="fa-solid fa-dog text-wood-500"></i>
+                    <h2>狗狗基本資料與體重</h2>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <!-- 毛孩名字 -->
+                    <div>
+                        <label for="dogName" class="block text-sm font-medium text-wood-800 mb-1">毛孩名字</label>
+                        <input type="text" id="dogName" placeholder="例如：糰糰" 
+                            class="w-full px-3 py-2.5 rounded-xl border border-wood-300 focus:outline-none focus:ring-2 focus:ring-wood-500 text-wood-800 bg-wood-50/50">
+                    </div>
+
+                    <!-- 犬種選擇 -->
+                    <div>
+                        <label for="dogBreed" class="block text-sm font-medium text-wood-800 mb-1">毛孩品種</label>
+                        <select id="dogBreed" onchange="updateBreedDefault()" class="w-full px-3 py-2.5 rounded-xl border border-wood-300 focus:outline-none focus:ring-2 focus:ring-wood-500 text-wood-800 bg-wood-50/50">
+                            <optgroup label="🐶 常見小型犬">
+                                <option value="poodle" selected>玩具/迷你貴賓犬</option>
+                                <option value="maltese">馬爾濟斯</option>
+                                <option value="pomeranian">博美犬</option>
+                                <option value="yorkshire">約克夏</option>
+                                <option value="chihuahua">吉娃娃</option>
+                                <option value="dachshund">臘腸犬</option>
+                                <option value="shih_tzu">西施犬 / 比熊犬</option>
+                                <option value="frenchie">法國鬥牛犬 / 巴哥</option>
+                            </optgroup>
+                            <optgroup label="🐕 常見中型/雙層毛犬">
+                                <option value="schnauzer">雪納瑞 / 梗犬類</option>
+                                <option value="shiba">柴犬</option>
+                                <option value="corgi">柯基犬</option>
+                                <option value="spitz">狐狸犬 / 薩摩耶(小)</option>
+                                <option value="border">邊境牧羊犬 / 喜樂蒂</option>
+                            </optgroup>
+                            <optgroup label="🐾 其他類別">
+                                <option value="mix_small">米克斯 / 混血小型犬</option>
+                                <option value="mix_medium">米克斯 / 混血中型犬</option>
+                                <option value="other">其他品種</option>
+                            </optgroup>
+                        </select>
+                    </div>
+
+                    <!-- 毛孩年齡 (新增) -->
+                    <div>
+                        <label for="dogAge" class="block text-sm font-medium text-wood-800 mb-1">毛孩年齡</label>
+                        <select id="dogAge" class="w-full px-3 py-2.5 rounded-xl border border-wood-300 focus:outline-none focus:ring-2 focus:ring-wood-500 text-wood-800 bg-wood-50/50">
+                            <option value="0">未滿 1 歲 (幼犬)</option>
+                            <option value="1">1 歲</option>
+                            <option value="2">2 歲</option>
+                            <option value="3" selected>3 歲</option>
+                            <option value="4">4 歲</option>
+                            <option value="5">5 歲</option>
+                            <option value="6">6 歲</option>
+                            <option value="7">7 歲</option>
+                            <option value="8">8 歲</option>
+                            <option value="9">9 歲</option>
+                            <option value="10">10 歲</option>
+                            <option value="11">11 歲</option>
+                            <option value="12">12 歲</option>
+                            <option value="13">13 歲</option>
+                            <option value="14">14 歲</option>
+                            <option value="15">15 歲以上 (高齡老犬)</option>
+                        </select>
+                    </div>
+
+                    <!-- 實際體重 (Kg) -->
+                    <div class="sm:col-span-3">
+                        <div class="flex justify-between items-center mb-1">
+                            <label for="dogWeight" class="block text-sm font-medium text-wood-800">實際體重 (kg)</label>
+                            <span id="weightDisplay" class="text-xs font-bold text-wood-600 bg-wood-100 px-2 py-0.5 rounded-full">5.0 kg</span>
+                        </div>
+                        <input type="range" id="dogWeight" min="1" max="25" step="0.5" value="5" oninput="updateWeightDisplay(this.value)"
+                            class="w-full h-2 bg-wood-200 rounded-lg appearance-none cursor-pointer accent-wood-600">
+                        <div class="flex justify-between text-xs text-wood-500 mt-1">
+                            <span>1 kg (超小型)</span>
+                            <span>5 kg (小型犬)</span>
+                            <span>10 kg (中型犬)</span>
+                            <span>15 kg+</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 步驟 2：選擇施作項目 -->
+            <section class="wood-card rounded-2xl p-5 sm:p-6">
+                <div class="flex items-center gap-2 text-wood-700 font-bold text-lg mb-4 border-b-2 border-wood-100 pb-2">
+                    <span class="w-7 h-7 rounded-full bg-wood-500 text-white flex items-center justify-center text-sm">2</span>
+                    <i class="fa-solid fa-shower text-wood-500"></i>
+                    <h2>選擇美容服務項目</h2>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <!-- 基礎洗澡 -->
+                    <div class="relative">
+                        <input type="radio" id="serviceBath" name="serviceType" value="bath" checked class="hidden custom-checkbox">
+                        <label for="serviceBath" class="flex flex-col p-3.5 border-2 border-wood-200 rounded-xl cursor-pointer hover:bg-wood-50 transition-all h-full">
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="font-bold text-wood-800"><i class="fa-solid fa-soap text-wood-500 mr-1.5"></i>基礎洗澡套餐</span>
+                                <span class="text-xs bg-wood-200 text-wood-800 px-2 py-0.5 rounded-full font-medium">基本推薦</span>
+                            </div>
+                            <p class="text-xs text-wood-600 leading-relaxed">包含洗澡兩次、吹乾、清耳朵、剪指甲、修腳底毛、擠肛門腺、修屁屁毛。</p>
+                        </label>
+                    </div>
+
+                    <!-- 電剪大美容 -->
+                    <div class="relative">
+                        <input type="radio" id="serviceClipper" name="serviceType" value="clipper" class="hidden custom-checkbox">
+                        <label for="serviceClipper" class="flex flex-col p-3.5 border-2 border-wood-200 rounded-xl cursor-pointer hover:bg-wood-50 transition-all h-full">
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="font-bold text-wood-800"><i class="fa-solid fa-plug text-wood-500 mr-1.5"></i>電剪大美容</span>
+                                <span class="text-xs bg-pawOrange/20 text-pawOrange px-2 py-0.5 rounded-full font-medium">電剪剃毛</span>
+                            </div>
+                            <p class="text-xs text-wood-600 leading-relaxed">包含基礎洗澡全部項目 + 身體電剪剃短（可留腳底/頭部造型）。</p>
+                        </label>
+                    </div>
+
+                    <!-- 手剪全手工大美容 -->
+                    <div class="relative">
+                        <input type="radio" id="serviceScissoring" name="serviceType" value="scissoring" class="hidden custom-checkbox">
+                        <label for="serviceScissoring" class="flex flex-col p-3.5 border-2 border-wood-200 rounded-xl cursor-pointer hover:bg-wood-50 transition-all h-full">
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="font-bold text-wood-800"><i class="fa-solid fa-scissors text-wood-500 mr-1.5"></i>手剪精緻大美容</span>
+                                <span class="text-xs bg-wood-700 text-white px-2 py-0.5 rounded-full font-medium">全手工修剪</span>
+                            </div>
+                            <p class="text-xs text-wood-600 leading-relaxed">包含基礎洗澡全部項目 + 全身專業手剪造型（修圓、熊頭、全身精緻線條）。</p>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- 新增：上傳參考造型區塊 -->
+                <div class="mt-4 pt-3 border-t border-dashed border-wood-200">
+                    <label class="block text-sm font-bold text-wood-800 mb-1.5">
+                        📸 喜歡的造型參考照片 (選填)
+                    </label>
+                    <p class="text-xs text-wood-600 mb-2">上傳您希望美容師修剪的風格照片（如泰迪熊頭、圓形耳、喇叭褲造型等），方便闆娘溝通評估喔！</p>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 items-start">
+                        <!-- 上傳按鈕與預覽區 -->
+                        <div>
+                            <input type="file" id="styleImageInput" accept="image/*" class="hidden" onchange="handleImageUpload(event)">
+                            <div id="uploadArea" onclick="document.getElementById('styleImageInput').click()" 
+                                class="border-2 border-dashed border-wood-300 rounded-xl p-4 text-center cursor-pointer hover:bg-wood-50/70 transition-all bg-wood-50/30">
+                                <i class="fa-solid fa-cloud-arrow-up text-wood-500 text-2xl mb-1"></i>
+                                <div class="text-xs font-bold text-wood-800">點擊上傳造型參考圖</div>
+                                <div class="text-[10px] text-wood-500 mt-0.5">支援 JPG, PNG 照片</div>
+                            </div>
+
+                            <!-- 圖片預覽卡片 -->
+                            <div id="imagePreviewContainer" class="hidden relative rounded-xl overflow-hidden border-2 border-wood-300 bg-black/5 mt-1">
+                                <img id="imagePreview" src="" alt="造型預覽" class="w-full h-36 object-cover">
+                                <button type="button" onclick="removeUploadedImage()" 
+                                    class="absolute top-2 right-2 bg-red-500 text-white w-7 h-7 rounded-full flex items-center justify-center text-xs shadow-md hover:bg-red-600 transition-all">
+                                    <i class="fa-solid fa-xmark"></i>
+                                </button>
+                                <div class="absolute bottom-0 left-0 right-0 bg-wood-800/80 text-white text-[11px] px-2 py-1 text-center truncate">
+                                    <i class="fa-solid fa-circle-check text-green-400 mr-1"></i>已選取造型參考圖
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 造型細節備註文字框 -->
+                        <div>
+                            <label for="styleNotes" class="block text-xs font-medium text-wood-800 mb-1">✂️ 修剪細節說明 (選填)</label>
+                            <textarea id="styleNotes" rows="3" placeholder="例如：頭要剪圓圓熊頭、耳朵毛留長不要剪短、腳靴修圓、身體留1.5公分等..." 
+                                class="w-full px-3 py-2 rounded-xl border border-wood-300 focus:outline-none focus:ring-2 focus:ring-wood-500 text-xs text-wood-800 bg-wood-50/30 resize-none"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 加購護理加值區 -->
+                <div class="mt-4 pt-3 border-t border-dashed border-wood-200">
+                    <label class="block text-sm font-bold text-wood-800 mb-2">✨ 加購專屬SPA與特殊照顧 (可多選)</label>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
+                        <label class="flex items-center gap-2 p-2.5 border border-wood-200 rounded-xl cursor-pointer hover:bg-wood-50">
+                            <input type="checkbox" id="addonSpa" value="200" class="rounded text-wood-600 focus:ring-wood-500">
+                            <span>碳酸泉微泡泥浴 (+ $200)</span>
+                        </label>
+                        <label class="flex items-center gap-2 p-2.5 border border-wood-200 rounded-xl cursor-pointer hover:bg-wood-50">
+                            <input type="checkbox" id="addonFlea" value="150" class="rounded text-wood-600 focus:ring-wood-500">
+                            <span>草本驅蟲草本防護 (+ $150)</span>
+                        </label>
+                        <label class="flex items-center gap-2 p-2.5 border border-wood-200 rounded-xl cursor-pointer hover:bg-wood-50">
+                            <input type="checkbox" id="addonKnot" value="150" class="rounded text-wood-600 focus:ring-wood-500">
+                            <span>輕微拆毛結處理 (+ $150起)</span>
+                        </label>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 步驟 3：皮膚狀況自我檢查表 -->
+            <section class="wood-card rounded-2xl p-5 sm:p-6 bg-warmWarm/50">
+                <div class="flex items-center justify-between border-b-2 border-wood-100 pb-2 mb-3">
+                    <div class="flex items-center gap-2 text-wood-700 font-bold text-lg">
+                        <span class="w-7 h-7 rounded-full bg-wood-500 text-white flex items-center justify-center text-sm">3</span>
+                        <i class="fa-solid fa-notes-medical text-wood-500"></i>
+                        <h2>皮膚狀況自我檢查表</h2>
+                    </div>
+                    <span class="text-xs text-wood-500"><i class="fa-solid fa-heart-pulse"></i> 照顧狗狗皮膚健康</span>
+                </div>
+
+                <p class="text-xs text-wood-600 mb-3">請協助勾選毛孩近期的皮膚狀況，ULI有隻糰會為牠評估是否需要使用溫和低敏洗劑或藥浴唷：</p>
+
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 text-xs mb-3">
+                    <label class="flex items-center gap-2 bg-white p-2.5 rounded-xl border border-wood-200 cursor-pointer hover:border-wood-400">
+                        <input type="checkbox" id="skinNormal" class="skin-check rounded text-wood-600" checked onchange="handleSkinNormalToggle(this)">
+                        <span class="font-medium text-wood-800">✅ 皮膚健康良好</span>
+                    </label>
+                    <label class="flex items-center gap-2 bg-white p-2.5 rounded-xl border border-wood-200 cursor-pointer hover:border-wood-400">
+                        <input type="checkbox" id="skinFlake" value="100" class="skin-check skin-issue rounded text-wood-600" onchange="handleSkinIssueToggle()">
+                        <span>🌧️ 有皮屑 / 乾燥發癢</span>
+                    </label>
+                    <label class="flex items-center gap-2 bg-white p-2.5 rounded-xl border border-wood-200 cursor-pointer hover:border-wood-400">
+                        <input type="checkbox" id="skinRed" value="100" class="skin-check skin-issue rounded text-wood-600" onchange="handleSkinIssueToggle()">
+                        <span>🔴 局部紅腫 / 抓癢頻繁</span>
+                    </label>
+                    <label class="flex items-center gap-2 bg-white p-2.5 rounded-xl border border-wood-200 cursor-pointer hover:border-wood-400">
+                        <input type="checkbox" id="skinOily" value="100" class="skin-check skin-issue rounded text-wood-600" onchange="handleSkinIssueToggle()">
+                        <span>💧 出油味重 / 體味較濃</span>
+                    </label>
+                    <label class="flex items-center gap-2 bg-white p-2.5 rounded-xl border border-wood-200 cursor-pointer hover:border-wood-400">
+                        <input type="checkbox" id="skinFungus" value="150" class="skin-check skin-issue rounded text-wood-600" onchange="handleSkinIssueToggle()">
+                        <span>🦠 醫生開立藥浴洗劑 (自備)</span>
+                    </label>
+                    <label class="flex items-center gap-2 bg-white p-2.5 rounded-xl border border-wood-200 cursor-pointer hover:border-wood-400">
+                        <input type="checkbox" id="skinSensitive" value="100" class="skin-check skin-issue rounded text-wood-600" onchange="handleSkinIssueToggle()">
+                        <span>🌸 極敏感肌 (需要舒敏舒緩)</span>
+                    </label>
+                </div>
+
+                <!-- 其他皮膚狀況自行輸入欄位 -->
+                <div class="bg-white p-3 rounded-xl border border-wood-200">
+                    <label for="skinOther" class="block text-xs font-bold text-wood-800 mb-1">
+                        ✏️ 其他皮膚狀況 / 補充說明 (選填)
+                    </label>
+                    <input type="text" id="skinOther" placeholder="例如：耳朵後面剛好有濕疹、右腳趾間有小傷口、對某些香味過敏等..."
+                        oninput="handleSkinInputToggle()"
+                        class="w-full px-3 py-2 rounded-lg border border-wood-300 focus:outline-none focus:ring-2 focus:ring-wood-500 text-xs text-wood-800 bg-wood-50/30">
+                </div>
+            </section>
+
+            <!-- 步驟 4：預約時間與家長聯絡資訊 -->
+            <section class="wood-card rounded-2xl p-5 sm:p-6 bg-white">
+                <div class="flex items-center gap-2 text-wood-700 font-bold text-lg mb-4 border-b-2 border-wood-100 pb-2">
+                    <span class="w-7 h-7 rounded-full bg-wood-500 text-white flex items-center justify-center text-sm">4</span>
+                    <i class="fa-solid fa-calendar-check text-wood-500"></i>
+                    <h2>選擇預約時間與聯絡資訊</h2>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <!-- 是否有來過工作室 -->
+                    <div>
+                        <label class="block text-xs font-bold text-wood-800 mb-1">🐾 是否來過店裡？</label>
+                        <div class="flex gap-2">
+                            <label class="flex-1 flex items-center justify-center gap-1.5 p-2 border border-wood-300 rounded-xl cursor-pointer hover:bg-wood-50 text-xs">
+                                <input type="radio" name="isNewCustomer" value="new" checked class="text-wood-600 focus:ring-wood-500">
+                                <span>第一次來 (新朋友)</span>
+                            </label>
+                            <label class="flex-1 flex items-center justify-center gap-1.5 p-2 border border-wood-300 rounded-xl cursor-pointer hover:bg-wood-50 text-xs">
+                                <input type="radio" name="isNewCustomer" value="old" class="text-wood-600 focus:ring-wood-500">
+                                <span>有來過 (老朋友)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- 預約日期 -->
+                    <div>
+                        <label for="bookingDate" class="block text-xs font-bold text-wood-800 mb-1">📅 希望預約日期</label>
+                        <input type="date" id="bookingDate" 
+                            class="w-full px-3 py-2.5 rounded-xl border border-wood-300 focus:outline-none focus:ring-2 focus:ring-wood-500 text-xs text-wood-800 bg-wood-50/50">
+                    </div>
+
+                    <!-- 希望時段（細分選項） -->
+                    <div>
+                        <label for="bookingTime" class="block text-xs font-bold text-wood-800 mb-1">⏰ 希望預約時段</label>
+                        <select id="bookingTime" class="w-full px-3 py-2.5 rounded-xl border border-wood-300 focus:outline-none focus:ring-2 focus:ring-wood-500 text-xs text-wood-800 bg-wood-50/50">
+                            <optgroup label="☀️ 上午時段">
+                                <option value="10:00">10:00 (上午熱門第一班)</option>
+                                <option value="11:30">11:30 (午前班)</option>
+                            </optgroup>
+                            <optgroup label="☕ 下午時段">
+                                <option value="13:00">13:00 (午後第一班)</option>
+                                <option value="14:30" selected>14:30 (下午茶時段)</option>
+                                <option value="16:00">16:00 (傍晚前班)</option>
+                            </optgroup>
+                            <optgroup label="🌙 晚間時段">
+                                <option value="17:30">17:30 (下班下課熱門時段)</option>
+                                <option value="18:30">18:30 (晚間最後預約班)</option>
+                            </optgroup>
+                        </select>
+                    </div>
+
+                    <!-- 家長稱呼與電話 -->
+                    <div>
+                        <label for="ownerPhone" class="block text-xs font-bold text-wood-800 mb-1">📞 家長聯絡電話 <span class="text-red-500 font-bold">(必填)</span></label>
+                        <input type="tel" id="ownerPhone" placeholder="例如：0912-345-678" required
+                            class="w-full px-3 py-2.5 rounded-xl border border-wood-300 focus:outline-none focus:ring-2 focus:ring-wood-500 text-xs text-wood-800 bg-wood-50/50">
+                    </div>
+                </div>
+            </section>
+
+            <!-- 試算按鈕 -->
+            <div class="text-center py-2">
+                <button type="button" onclick="calculatePrice()" 
+                    class="w-full sm:w-auto px-10 py-3.5 bg-wood-600 hover:bg-wood-700 active:scale-95 text-white font-bold text-lg rounded-2xl shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2 mx-auto">
+                    <i class="fa-solid fa-calculator"></i>
+                    <span>按我一鍵試算價格與產出預約單</span>
+                </button>
+            </div>
+
+            <!-- 價格顯示卡片 (預設隱藏或自動更新) -->
+            <div id="resultCard" class="hidden wood-card rounded-2xl p-6 border-2 border-wood-500 bg-wood-50 relative overflow-hidden transition-all duration-300">
+                <div class="absolute -right-6 -bottom-6 text-wood-200 opacity-20 text-8xl pointer-events-none">🐾</div>
+
+                <div class="flex items-center justify-between border-b border-wood-200 pb-3 mb-4">
+                    <h3 class="text-xl font-bold text-wood-800 flex items-center gap-2">
+                        <span>預估價格與預約明細</span>
+                    </h3>
+                    <span class="text-xs bg-wood-200 text-wood-800 px-2.5 py-1 rounded-full font-medium">ULI有隻糰 報價單</span>
+                </div>
+
+                <!-- 明細列表 -->
+                <div class="space-y-2 text-sm text-wood-700 mb-4" id="priceDetails">
+                    <!-- 由 JavaScript 動態生成明細 -->
+                </div>
+
+                <div class="border-t border-wood-300 pt-3 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                    <div>
+                        <span class="text-xs text-wood-600 block">實際價格以現場現場毛髮狀況（如打結嚴重、吠叫不配合等）評估調整為準：</span>
+                        <span class="text-xs text-pawOrange font-medium">* 熟客預約享專屬毛孩小禮物一份 🎁</span>
+                    </div>
+                    <div class="text-right w-full sm:w-auto">
+                        <span class="text-xs text-wood-600">預估總金額</span>
+                        <div class="text-3xl font-extrabold text-wood-800"><span class="text-sm font-normal">NT$</span> <span id="totalPrice">0</span></div>
+                    </div>
+                </div>
+
+                <!-- 快速分享/報價複製 -->
+                <div class="mt-4 pt-3 border-t border-dashed border-wood-200 flex justify-end">
+                    <button onclick="copyQuote()" class="text-xs bg-wood-600 hover:bg-wood-700 text-white px-4 py-2 rounded-xl font-bold shadow-md transition-all flex items-center gap-1.5">
+                        <i class="fa-regular fa-paper-plane"></i> 複製完整預約單給闆娘
+                    </button>
+                </div>
+            </div>
+
+            <!-- 步驟 5：美容後溫馨叮嚀小卡 -->
+            <section class="wood-card rounded-2xl p-5 sm:p-6 bg-white border-l-4 border-l-wood-500">
+                <div class="flex items-center gap-2 text-wood-800 font-bold text-base mb-3">
+                    <i class="fa-solid font-heart text-pawOrange fa-heart"></i>
+                    <h2>糰糰闆娘的美容後溫馨叮嚀</h2>
+                </div>
+                <ul class="text-xs sm:text-sm text-wood-700 space-y-2 leading-relaxed list-disc list-inside">
+                    <li><strong class="text-wood-800">剛洗完澡回家：</strong>狗狗可能因為太興奮或放鬆而特別想睡覺，請給毛孩安靜舒適的休息空間。</li>
+                    <li><strong class="text-wood-800">皮膚與耳道：</strong>美容後1-2天內，請留意毛孩是否有頻繁甩頭或過度抓癢現象，如有異狀可隨時回報給我們喔！</li>
+                    <li><strong class="text-wood-800">毛髮梳理：</strong>長毛狗狗回家後，建議每天花 3 分鐘輕輕梳理，可以維持毛髮蓬鬆並減少結毛問題。</li>
+                    <li><strong class="text-wood-800">保持乾燥：</strong>喝水或外出散步後，請儘快擦乾嘴邊與腳掌毛，能大幅降低黴菌滋生的機率唷！</li>
+                </ul>
+            </section>
+
+        </main>
+
+        <!-- 頁尾 -->
+        <footer class="mt-8 text-center text-xs text-wood-600 space-y-2 pb-6">
+            <p>ULI有隻糰 寵物美容工作室 ‧ 預約專線 & LINE 歡迎私訊詢問</p>
+            <p class="font-medium text-wood-700">製作：你的名字</p>
+        </footer>
+
+    </div>
+
+    <!-- 邏輯腳本 -->
+    <script>
+        // 上傳與處理參考造型圖片
+        let uploadedImageBase64 = null;
+
+        function handleImageUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    uploadedImageBase64 = e.target.result;
+                    document.getElementById('imagePreview').src = uploadedImageBase64;
+                    document.getElementById('uploadArea').classList.add('hidden');
+                    document.getElementById('imagePreviewContainer').classList.remove('hidden');
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function removeUploadedImage() {
+            uploadedImageBase64 = null;
+            document.getElementById('styleImageInput').value = '';
+            document.getElementById('imagePreview').src = '';
+            document.getElementById('imagePreviewContainer').classList.add('hidden');
+            document.getElementById('uploadArea').classList.remove('hidden');
+        }
+
+        // 更新滑桿顯示
+        function updateWeightDisplay(val) {
+            document.getElementById('weightDisplay').innerText = parseFloat(val).toFixed(1) + ' kg';
+        }
+
+        // 當犬種變更時，給予合理的預設體重提示
+        function updateBreedDefault() {
+            const breed = document.getElementById('dogBreed').value;
+            const weightInput = document.getElementById('dogWeight');
+            
+            if (['chihuahua', 'yorkshire'].includes(breed)) {
+                weightInput.value = 2.5;
+            } else if (['pomeranian', 'maltese'].includes(breed)) {
+                weightInput.value = 3.5;
+            } else if (['poodle', 'shih_tzu', 'dachshund', 'mix_small'].includes(breed)) {
+                weightInput.value = 5.0;
+            } else if (['schnauzer', 'frenchie'].includes(breed)) {
+                weightInput.value = 7.0;
+            } else if (['shiba', 'corgi', 'spitz', 'mix_medium', 'border'].includes(breed)) {
+                weightInput.value = 10.0;
+            }
+            updateWeightDisplay(weightInput.value);
+        }
+
+        // 皮膚狀況切換邏輯
+        function handleSkinNormalToggle(normalCheck) {
+            if (normalCheck.checked) {
+                const issues = document.querySelectorAll('.skin-issue');
+                issues.forEach(i => i.checked = false);
+                document.getElementById('skinOther').value = '';
+            }
+        }
+
+        function handleSkinIssueToggle() {
+            const issues = document.querySelectorAll('.skin-issue:checked');
+            const otherText = document.getElementById('skinOther').value.trim();
+            const normalCheck = document.getElementById('skinNormal');
+            if (issues.length > 0 || otherText !== '') {
+                normalCheck.checked = false;
+            } else {
+                normalCheck.checked = true;
+            }
+        }
+
+        function handleSkinInputToggle() {
+            handleSkinIssueToggle();
+        }
+
+        // 核心價格試算 logic
+        function calculatePrice() {
+            const name = document.getElementById('dogName').value.trim() || '貴客毛孩';
+            const breed = document.getElementById('dogBreed').value;
+            const ageKey = document.getElementById('dogAge').value;
+            const weight = parseFloat(document.getElementById('dogWeight').value);
+            const serviceType = document.querySelector('input[name="serviceType"]:checked').value;
+            const isNewCustomer = document.querySelector('input[name="isNewCustomer"]:checked').value;
+            const bookingDate = document.getElementById('bookingDate').value;
+            const bookingTime = document.getElementById('bookingTime').value;
+            const ownerPhoneInput = document.getElementById('ownerPhone');
+            const ownerPhone = ownerPhoneInput.value.trim();
+
+            if (!ownerPhone) {
+                alert('請填寫家長聯絡電話，方便闆娘為您安排預約喔！🐾');
+                ownerPhoneInput.focus();
+                return;
+            }
+
+            // 年齡文字轉換
+            const ageVal = document.getElementById('dogAge').value;
+            let ageText = ageVal === '0' ? '未滿 1 歲' : `${ageVal} 歲`;
+
+            let basePrice = 0;
+            let breedName = '';
+
+            // 基礎價格矩陣 (依細分犬種計算)
+            switch (breed) {
+                case 'chihuahua':
+                    breedName = '吉娃娃';
+                    if (serviceType === 'bath') basePrice = 450;
+                    else if (serviceType === 'clipper') basePrice = 850;
+                    else basePrice = 1100;
+                    break;
+                case 'yorkshire':
+                    breedName = '約克夏';
+                    if (serviceType === 'bath') basePrice = 550;
+                    else if (serviceType === 'clipper') basePrice = 1000;
+                    else basePrice = 1300;
+                    break;
+                case 'pomeranian':
+                    breedName = '博美犬';
+                    if (serviceType === 'bath') basePrice = 600;
+                    else if (serviceType === 'clipper') basePrice = 1100;
+                    else basePrice = 1400;
+                    break;
+                case 'maltese':
+                    breedName = '馬爾濟斯';
+                    if (serviceType === 'bath') basePrice = 550;
+                    else if (serviceType === 'clipper') basePrice = 1000;
+                    else basePrice = 1300;
+                    break;
+                case 'poodle':
+                    breedName = '貴賓犬';
+                    if (serviceType === 'bath') basePrice = 600;
+                    else if (serviceType === 'clipper') basePrice = 1100;
+                    else basePrice = 1400;
+                    break;
+                case 'shih_tzu':
+                    breedName = '西施/比熊犬';
+                    if (serviceType === 'bath') basePrice = 600;
+                    else if (serviceType === 'clipper') basePrice = 1100;
+                    else basePrice = 1400;
+                    break;
+                case 'dachshund':
+                    breedName = '臘腸犬';
+                    if (serviceType === 'bath') basePrice = 500;
+                    else if (serviceType === 'clipper') basePrice = 900;
+                    else basePrice = 1200;
+                    break;
+                case 'frenchie':
+                    breedName = '法鬥/巴哥';
+                    if (serviceType === 'bath') basePrice = 600;
+                    else if (serviceType === 'clipper') basePrice = 950;
+                    else basePrice = 1250;
+                    break;
+                case 'schnauzer':
+                    breedName = '雪納瑞/梗犬';
+                    if (serviceType === 'bath') basePrice = 650;
+                    else if (serviceType === 'clipper') basePrice = 1200;
+                    else basePrice = 1500;
+                    break;
+                case 'shiba':
+                    breedName = '柴犬';
+                    if (serviceType === 'bath') basePrice = 750;
+                    else if (serviceType === 'clipper') basePrice = 1300;
+                    else basePrice = 1600;
+                    break;
+                case 'corgi':
+                    breedName = '柯基犬';
+                    if (serviceType === 'bath') basePrice = 800;
+                    else if (serviceType === 'clipper') basePrice = 1350;
+                    else basePrice = 1650;
+                    break;
+                case 'spitz':
+                    breedName = '狐狸犬/薩摩耶';
+                    if (serviceType === 'bath') basePrice = 800;
+                    else if (serviceType === 'clipper') basePrice = 1400;
+                    else basePrice = 1750;
+                    break;
+                case 'border':
+                    breedName = '邊境/喜樂蒂';
+                    if (serviceType === 'bath') basePrice = 900;
+                    else if (serviceType === 'clipper') basePrice = 1500;
+                    else basePrice = 1900;
+                    break;
+                case 'mix_small':
+                    breedName = '米克斯(小型)';
+                    if (serviceType === 'bath') basePrice = 500;
+                    else if (serviceType === 'clipper') basePrice = 950;
+                    else basePrice = 1250;
+                    break;
+                case 'mix_medium':
+                    breedName = '米克斯(中型)';
+                    if (serviceType === 'bath') basePrice = 700;
+                    else if (serviceType === 'clipper') basePrice = 1200;
+                    else basePrice = 1500;
+                    break;
+                default:
+                    breedName = '其他品種';
+                    if (serviceType === 'bath') basePrice = 600;
+                    else if (serviceType === 'clipper') basePrice = 1100;
+                    else basePrice = 1400;
+                    break;
+            }
+
+            // 超過基本體重 (5kg以上) 加價機制，每多1kg加 $50
+            let weightExtra = 0;
+            if (weight > 5) {
+                weightExtra = Math.ceil(weight - 5) * 50;
+            }
+
+            // 加購項目計算
+            let addonTotal = 0;
+            let addonDetails = [];
+
+            if (document.getElementById('addonSpa').checked) {
+                addonTotal += 200;
+                addonDetails.push('碳酸泉微泡泥浴 (+$200)');
+            }
+            if (document.getElementById('addonFlea').checked) {
+                addonTotal += 150;
+                addonDetails.push('草本驅蟲防護 (+$150)');
+            }
+            if (document.getElementById('addonKnot').checked) {
+                addonTotal += 150;
+                addonDetails.push('輕微拆毛結處理 (+$150)');
+            }
+
+            // 皮膚特別處置費與備註
+            let skinExtra = 0;
+            const skinIssues = document.querySelectorAll('.skin-issue:checked');
+            const skinOtherText = document.getElementById('skinOther').value.trim();
+
+            if (skinIssues.length > 0 || skinOtherText !== '') {
+                skinExtra = 100; // 有皮膚問題統一建議升級低敏低刺激洗劑或藥浴補助
+            }
+
+            const totalPrice = basePrice + weightExtra + addonTotal + skinExtra;
+
+            // 渲染明細 HTML
+            const detailsContainer = document.getElementById('priceDetails');
+            let serviceTypeName = '基礎洗澡套餐';
+            if (serviceType === 'clipper') serviceTypeName = '電剪大美容套餐';
+            else if (serviceType === 'scissoring') serviceTypeName = '手剪精緻大美容套餐';
+
+            const styleNotes = document.getElementById('styleNotes').value.trim();
+            const isNewCustomerText = isNewCustomer === 'new' ? '✨ 第一次來 (新朋友)' : '💖 有來過 (老朋友熟客)';
+
+            let detailsHtml = `
+                <div class="flex justify-between py-1 border-b border-wood-100">
+                    <span>🐾 毛孩名字 / 品種 / 年齡：</span>
+                    <span class="font-bold text-wood-800">${name} (${breedName}, ${ageText}, ${weight}kg)</span>
+                </div>
+                <div class="flex justify-between py-1 border-b border-wood-100">
+                    <span>🏠 是否來過店裡：</span>
+                    <span class="font-bold text-wood-800">${isNewCustomerText}</span>
+                </div>
+                <div class="flex justify-between py-1 border-b border-wood-100">
+                    <span>📅 預約日期 / 時段：</span>
+                    <span class="font-bold text-wood-800">${bookingDate ? bookingDate : '未選擇日期'} ${bookingTime}</span>
+                </div>
+            `;
+
+            if (ownerPhone) {
+                detailsHtml += `
+                    <div class="flex justify-between py-1 border-b border-wood-100">
+                        <span>📞 家長電話：</span>
+                        <span class="text-wood-800">${ownerPhone}</span>
+                    </div>
+                `;
+            }
+
+            detailsHtml += `
+                <div class="flex justify-between py-1 border-b border-wood-100">
+                    <span>✂️ 主服務項目：</span>
+                    <span class="font-bold text-wood-800">${serviceTypeName} (NT$ ${basePrice})</span>
+                </div>
+            `;
+
+            if (uploadedImageBase64 || styleNotes) {
+                let styleDetailStr = '';
+                if (uploadedImageBase64) styleDetailStr += '📷 已上傳造型圖 ';
+                if (styleNotes) styleDetailStr += `(${styleNotes})`;
+
+                detailsHtml += `
+                    <div class="flex justify-between py-1 border-b border-wood-100">
+                        <span>💈 參考造型需求：</span>
+                        <span class="text-wood-800 font-medium">${styleDetailStr}</span>
+                    </div>
+                `;
+            }
+
+            if (weightExtra > 0) {
+                detailsHtml += `
+                    <div class="flex justify-between py-1 border-b border-wood-100">
+                        <span>⚖️ 體重調整費 (超出5kg部分)：</span>
+                        <span class="text-wood-800">+ NT$ ${weightExtra}</span>
+                    </div>
+                `;
+            }
+
+            if (addonDetails.length > 0) {
+                detailsHtml += `
+                    <div class="flex justify-between py-1 border-b border-wood-100">
+                        <span>✨ 加購SPA護理：</span>
+                        <span class="text-wood-800">${addonDetails.join(', ')}</span>
+                    </div>
+                `;
+            }
+
+            if (skinExtra > 0) {
+                let skinDesc = '舒敏皮屑/皮膚低敏洗劑防護';
+                if (skinOtherText !== '') {
+                    skinDesc += ` (${skinOtherText})`;
+                }
+                detailsHtml += `
+                    <div class="flex justify-between py-1 border-b border-wood-100">
+                        <span>🌿 ${skinDesc}：</span>
+                        <span class="text-wood-800">+ NT$ ${skinExtra}</span>
+                    </div>
+                `;
+            }
+
+            detailsContainer.innerHTML = detailsHtml;
+            document.getElementById('totalPrice').innerText = totalPrice;
+
+            // 顯示結果卡片並滑動到結果
+            const resultCard = document.getElementById('resultCard');
+            resultCard.classList.remove('hidden');
+            resultCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // 複製報價與預約單文字功能
+        function copyQuote() {
+            const name = document.getElementById('dogName').value.trim() || '狗狗';
+            const ageKey = document.getElementById('dogAge').value;
+            const total = document.getElementById('totalPrice').innerText;
+            const isNewCustomer = document.querySelector('input[name="isNewCustomer"]:checked').value;
+            const bookingDate = document.getElementById('bookingDate').value || '尚未選擇日期';
+            const bookingTime = document.getElementById('bookingTime').value;
+            const ownerPhone = document.getElementById('ownerPhone').value.trim();
+            const skinOtherText = document.getElementById('skinOther').value.trim();
+            const styleNotes = document.getElementById('styleNotes').value.trim();
+
+            const ageVal = document.getElementById('dogAge').value;
+            let ageText = ageVal === '0' ? '未滿 1 歲' : `${ageVal} 歲`;
+
+            const customerStatusText = isNewCustomer === 'new' ? '第一次來 (新朋友)' : '有來過 (老朋友)';
+
+            let noteText = '';
+            if (skinOtherText) {
+                noteText += `\n皮膚狀況補充：${skinOtherText}`;
+            }
+
+            let styleText = '';
+            if (uploadedImageBase64) {
+                styleText += `\n造型參考：已選取相片 (照片請隨訊息一併傳送給闆娘唷)`;
+            }
+            if (styleNotes) {
+                styleText += `\n造型修剪備註：${styleNotes}`;
+            }
+
+            let phoneText = '';
+            if (ownerPhone) {
+                phoneText = `\n聯絡電話：${ownerPhone}`;
+            }
+
+            const textToCopy = `闆娘你好！我想預約【ULI有隻糰】洗澡美容服務🐶\n-----------------------\n毛孩名字：${name} (${ageText})\n顧客狀態：${customerStatusText}${phoneText}\n預約日期：${bookingDate}\n希望時段：${bookingTime}${styleText}${noteText}\n-----------------------\n線上預估試算價格約為：NT$ ${total}\n想確認這個時段是否有空檔，謝謝！`;
+
+            // 使用隱藏 textarea 來執行複製指令
+            const textArea = document.createElement("textarea");
+            textArea.value = textToCopy;
+            document.body.appendChild(textArea);
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                alert('已成功複製預約資訊與價格試算！您可以直接貼上傳給闆娘囉 ❤️');
+            } catch (err) {
+                alert('複製失敗，請手動複製結果區塊。');
+            }
+            document.body.removeChild(textArea);
+        }
+    </script>
+</body>
+</html>
